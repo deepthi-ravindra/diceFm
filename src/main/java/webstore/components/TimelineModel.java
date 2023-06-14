@@ -6,8 +6,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utility.Utilities;
 
-import java.util.Date;
-
 public class TimelineModel extends CommonComponents{
 
     @FindBy(css = "[data-id='wizardStep[timeline]']")

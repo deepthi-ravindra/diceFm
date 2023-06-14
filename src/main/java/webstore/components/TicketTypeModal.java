@@ -1,6 +1,5 @@
 package webstore.components;
 
-import io.cucumber.java.bs.I;
 import log.Log;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -67,13 +66,6 @@ public class TicketTypeModal extends CommonComponents {
     public void enterTicketPrice(int price) {
         ticketPrice.waitUntilVisible();
         typeInto(ticketPrice,String.valueOf(price+".00"));
-    }
-
-    public void enterTicketAllocation(int allocation) {
-        ticketAllocation.waitUntilVisible();
-        evaluateJavascript("arguments[0].value = ''", ticketAllocation);
-        waitABit(1000);
-        new Actions(getDriver()).sendKeys(ticketAllocation, "4").perform();
     }
 
     public void saveTicketTypeDetails() {
