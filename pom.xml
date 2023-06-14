@@ -54,7 +54,7 @@
         <cucumberRunnerTemplate>cucable-runner-TEST.template</cucumberRunnerTemplate>
         <runners>**/*IT.java</runners>
         <featuresDirectory>${project.basedir}/src/test/resources/features/</featuresDirectory>
-        <failsafe.rerunFailingTestsCount>2</failsafe.rerunFailingTestsCount>
+        <failsafe.rerunFailingTestsCount>1</failsafe.rerunFailingTestsCount>
 
     </properties>
 
@@ -75,12 +75,12 @@
             <version>${serenity.cucumber.version}</version>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>net.serenity-bdd</groupId>-->
-<!--            <artifactId>serenity-junit</artifactId>-->
-<!--            <version>${serenity.version}</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-junit</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
@@ -179,79 +179,36 @@
                 </configuration>
             </plugin>
 
+            <!--CUCABLE PLUGIN FOR PARALLEL RUNNING OF SCENARIOS-->
 
-            <!--CUCUMBER-JVM-PARALLEL-PLUGIN-->
+            <plugin>
+                <groupId>com.trivago.rta</groupId>
+                <artifactId>cucable-plugin</artifactId>
+                <version>${cucable.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>generateRunners</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>parallel</goal>
+                        </goals>
+                        <configuration>
+                            <sourceRunnerTemplateFile>
+                                ${project.basedir}/src/test/resources/templates/${cucumberRunnerTemplate}
+                            </sourceRunnerTemplateFile>
+                            <sourceFeatures>${featuresDirectory}</sourceFeatures>
+                            <generatedFeatureDirectory>${project.basedir}/src/test/resources/parallel/features
+                            </generatedFeatureDirectory>
+                            <includeScenarioTags>${tags}</includeScenarioTags>
+                            <generatedRunnerDirectory>${project.basedir}/src/test/java/parallel/runners
+                            </generatedRunnerDirectory>
+                            <numberOfTestRuns>1</numberOfTestRuns>
+                            <logLevel>off</logLevel>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-            <!--            UNCOMMENT THE BELOW PLUGIN FOR LOCAL TEST RUNS-->
-                                                <plugin>
-                                                    <groupId>com.github.temyers</groupId>
-                                                    <artifactId>cucumber-jvm-parallel-plugin</artifactId>
-                                                    <version>5.0.0</version>
-                                                    <executions>
-                                                        <execution>
-                                                            <id>generateRunners</id>
-                                                            <phase>generate-test-sources</phase>
-                                                            <goals>
-                                                                <goal>generateRunners</goal>
-                                                            </goals>
-                                                            <configuration>
-                                                                <glue>
-                                                                    <package>stepDefs</package>
-                                                                </glue>
-                                                                <parallelScheme>FEATURE</parallelScheme>
-                                                                <outputDirectory>${project.build.directory}/generated-test-sources/cucumber
-                                                                </outputDirectory>
-                                                                <featuresDirectory>${featuresDirectory}</featuresDirectory>
-                                                                <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
-                                                                <strict>true</strict>
-                                                                <customVmTemplate>/src/test/resources/templates/cucumber-jvm-runner.vm
-                                                                </customVmTemplate>
-                                                                <monochrome>true</monochrome>
-                                                                <useTestNG>false</useTestNG>
-                                                                <useTestNG>false</useTestNG>
-                                                                <namingScheme>feature-title</namingScheme>
-                                                                <!-- One of [SCENARIO, FEATURE]. SCENARIO generates one runner per scenario.  FEATURE generates a runner per feature. -->
-                                                                <!--<parallelScheme>${parallelScheme}</parallelScheme>-->
-                                                            </configuration>
-                                                        </execution>
-                                                    </executions>
-                                                </plugin>
-            <!--            UNCOMMENT THE ABOVE PLUGIN FOR LOCAL TEST RUNS-->
-
-
-            <!--CUCABLE PLUGIN-->
-
-            <!--DISABLE THE BELOW PLUGIN FOR LOCAL TEST RUNS IF NEEDED-->
-
-<!--            <plugin>-->
-<!--                <groupId>com.trivago.rta</groupId>-->
-<!--                <artifactId>cucable-plugin</artifactId>-->
-<!--                <version>${cucable.plugin.version}</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>generateRunners</id>-->
-<!--                        <phase>generate-test-sources</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>parallel</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <sourceRunnerTemplateFile>-->
-<!--                                ${project.basedir}/src/test/resources/cucumberTemplates/${cucumberRunnerTemplate}-->
-<!--                            </sourceRunnerTemplateFile>-->
-<!--                            <sourceFeatures>${featuresDirectory}</sourceFeatures>-->
-<!--                            <generatedFeatureDirectory>${project.basedir}/src/test/resources/parallel/features-->
-<!--                            </generatedFeatureDirectory>-->
-<!--                            <includeScenarioTags>${tags}</includeScenarioTags>-->
-<!--                            <generatedRunnerDirectory>${project.basedir}/src/test/java/parallel/runners-->
-<!--                            </generatedRunnerDirectory>-->
-<!--                            <numberOfTestRuns>1</numberOfTestRuns>-->
-<!--                            <logLevel>off</logLevel>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-
-            <!--DISABLE THE ABOVE PLUGIN FOR LOCAL TEST RUNS IF NEEDED-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -348,13 +305,11 @@
 
     <profiles>
         <profile>
-            <id>VIKINGPLUS</id>
+            <id>DICEFM</id>
             <properties>
-                <tags>@vikingPlus</tags>
-                <environment>s1</environment>
-                <forkCount>3C</forkCount>
+                <tags>@test</tags>
                 <browser>chrome</browser>
-                <cucumberRunnerTemplate>cucumber-runner-VIKINGPLUS.template</cucumberRunnerTemplate>
+                <cucumberRunnerTemplate>cucable-runner-TEST.template</cucumberRunnerTemplate>
             </properties>
         </profile>
     </profiles>

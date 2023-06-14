@@ -23,8 +23,6 @@ public class LocalChromeDriver implements DriverSource {
         options.setAcceptInsecureCerts(true);
 
         Logger.getRootLogger().setLevel(Level.INFO);
-//        System.setProperty("browser", "chrome");
-//        System.setProperty("webdriver.chrome.driver", "chromedriver");
 
         WebDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();

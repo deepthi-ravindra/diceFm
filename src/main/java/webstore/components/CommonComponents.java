@@ -1,31 +1,38 @@
 package webstore.components;
 
+import log.Log;
 import net.serenitybdd.core.exceptions.SerenityManagedException;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.environment.SystemEnvironmentVariables;
+import net.thucydides.core.util.EnvironmentVariables;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 
 public class CommonComponents extends PageObject {
+    @FindBy(className = "gDmVIE")
+    protected WebElementFacade dashboard;
+    EnvironmentVariables environmentVariables = SystemEnvironmentVariables.createEnvironmentVariables();
     By textBox = By.className("kbWUSc");
     protected By buttons = By.className("-preset-primary-outline");
     By descriptionField = By.className("public-DraftEditor-content");
-
-
     By onSaleDate = By.name("onSaleDate");
     By offSaleDate = By.name("offSaleDate");
     By announcementDate = By.name("announceDate");
 
-
     public void selectOption(By by, String option) {
-
         for (WebElementFacade webElementFacade : findAll(by)) {
             if (webElementFacade.getText().trim().contains(option.trim())) {
                 try {
+                    webElementFacade.waitUntilVisible();
                     webElementFacade.click();
-
+                    webElementFacade.click();
+                    webElementFacade.click();
+                    waitABit(1000);
                 } catch (ElementClickInterceptedException elementClickInterceptedException) {
                     clickOn(webElementFacade);
+                } catch (StaleElementReferenceException staleElementReferenceException) {
+                    Log.info("Stale element exception encountered as element already clicked");
                 }
                 break;
             }

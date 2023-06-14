@@ -2,13 +2,10 @@ package webstore.components;
 
 import log.Log;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
 import utility.Utilities;
-
-import java.io.File;
 
 public class TicketsModel extends CommonComponents {
     TicketTypeModal ticketTypeModal;
@@ -18,6 +15,9 @@ public class TicketsModel extends CommonComponents {
     @FindBy(className = "ListAddButton__AddButton-sc-f24vz4-0")
     WebElementFacade addTicketAgain;
 
+    /**
+     * Clicks Add ticket button
+     */
     public void addTickets() {
         ticketForm.waitUntilVisible();
 
@@ -25,27 +25,38 @@ public class TicketsModel extends CommonComponents {
         clickOn(findAll(buttons).get(0));
     }
 
+    /**
+     * Fill in ticket type and other ticket details
+     *
+     * @param ticketType
+     */
     public void fillInTicketForm(String ticketType) {
         try {
-            addTicketAgain.waitUntilVisible();
-            addTicketAgain.click();
+            if (ticketType.equalsIgnoreCase("Unreserved Seating")) {
+                addTicketAgain.waitUntilVisible();
+                addTicketAgain.click();
+            }
         } catch (NoSuchElementException noSuchElementException) {
             //Move on as this is expected first time
-        } catch(ElementClickInterceptedException elementClickInterceptedException) {
+        } catch (ElementClickInterceptedException elementClickInterceptedException) {
             clickOn(addTicketAgain);
         }
         setTicketTypeFields(ticketType);
-
     }
 
+    /**
+     * Set ticket type fields - type, description, price, allocation of seats and save
+     *
+     * @param ticketType
+     */
     private void setTicketTypeFields(String ticketType) {
         ticketTypeModal.selectTicketTypeIcon(ticketType);
         ticketTypeModal.enterTicketDescription(ticketType + " Ticket description");
-        ticketTypeModal.addTicketTimeline();
 
         ticketTypeModal.enterTicketPrice(Utilities.getRandomNumberBetween(20, 60));
-//        ticketTypeModal.enterTicketAllocation(Utilities.getRandomNumberBetween(1, 10));
+        ticketTypeModal.enterTicketAllocation(Utilities.getRandomNumberBetween(1, 10));
 
         ticketTypeModal.saveTicketTypeDetails();
+        Log.info("Created ticket type: " + ticketType);
     }
 }
