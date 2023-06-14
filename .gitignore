@@ -1,0 +1,17 @@
+/target/
+/bin/
+/test-output/
+.settings/
+*.classpath
+surefire/
+.idea/
+*.iml
+.metadata/
+common-automation/target/
+hybris-automation/TestOutput.log
+hybris-automation/target/
+services-automation/target/
+*.project
+example.log
+tempFile
+example.log.1

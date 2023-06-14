@@ -1,0 +1,16 @@
+package parallel.runners;
+
+import io.cucumber.junit.CucumberOptions;
+import org.junit.runner.RunWith;
+import net.serenitybdd.cucumber.CucumberWithSerenity;
+
+@RunWith(CucumberWithSerenity.class)
+@CucumberOptions(
+        features = {"classpath:parallel/features/[CUCABLE:FEATURE].feature"},
+        dryRun = false,
+        tags = "@test",
+        monochrome = false,
+        glue = "stepDefs")
+public class [CUCABLE:RUNNER]{
+
+}
