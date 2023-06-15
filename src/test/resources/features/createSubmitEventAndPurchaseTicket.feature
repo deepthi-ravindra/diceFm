@@ -1,3 +1,4 @@
+@test
 Feature: Creation and submission of new event on sale, register new user and purchase ticket
 
   Background:
@@ -5,7 +6,6 @@ Feature: Creation and submission of new event on sale, register new user and pur
     And I login to MIO as MIO user
     And I click create new event button
 
-  @test
   Scenario Outline: Create and Submit an event that is on sale, view event on web, purchase 2nd type of ticket as new user
     When I select Basics eventType "<eventType>", Artist "<artist>", Genre "<genre>", Venue name "<venue name>"
     And I fill in Timeline details with timeZone "<timezone>"
@@ -29,7 +29,6 @@ Feature: Creation and submission of new event on sale, register new user and pur
       | artist  | eventType | genre      | venue name | timezone                        | ticketType1 | ticketType2        |
       | Rihanna | Gigs      | deep house | DICE VENUE | (GMT+01:00) British Summer Time | Standing    | Unreserved Seating |
 
-  @test
   Scenario Outline: Verify error message is displayed with unexpected actions
     When I select Basics eventType "<eventType>", Artist "<artist>", Genre "<genre>", Venue name "<venue name>"
     And I fill in incorrect Timeline details with timeZone "<timezone>"
