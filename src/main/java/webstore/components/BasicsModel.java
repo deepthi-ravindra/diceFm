@@ -43,6 +43,7 @@ public class BasicsModel extends CommonComponents {
     public void fillInBasicsForm(String eventType, String artist, String genre, String venueName) {
         basicsForm.waitUntilVisible();
 
+        waitABit(1000);
         find(textBox).waitUntilVisible();
         find(textBox).click();
         selectOption(allTypeOptions, eventType);

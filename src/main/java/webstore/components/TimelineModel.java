@@ -158,6 +158,7 @@ public class TimelineModel extends CommonComponents {
         try {
             datePickerModal.waitUntilNotVisible();
         } catch (ElementShouldBeInvisibleException elementShouldBeInvisibleException) {
+            find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(3)))).click();
             new Actions(getDriver()).click(timelinesForm).perform();
         }
         Log.info("Entered event start date " + startDate);
@@ -181,6 +182,7 @@ public class TimelineModel extends CommonComponents {
             waitABit(1000);
             datePickerModal.waitUntilNotVisible();
         } catch (ElementShouldBeInvisibleException elementShouldBeInvisibleException) {
+            find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(-1)))).click();
             new Actions(getDriver()).click(timelinesForm).perform();
         }
         Log.info("Entered event on sale date " + onSaleDay);
