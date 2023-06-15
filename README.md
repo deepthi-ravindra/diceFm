@@ -14,12 +14,16 @@ This maybe slow/fast depending on network and other things like interruptions on
 Go to maven command line on intelliJ and run the maven command - mvn clean verify -P DICEFM -Dwebdriver.provided.mydriver=drivers.LocalChromeDriver. It will start both scenarios together and run them on chrome.There is a config in pom where if a test fails, it retries and re-runs once more.
 A link to the single page index.html report is at the end on console where all steps and test results can be seen(attached)
 
+Plugins required in IntelliJ:
+Cucumber for Java
+Gherkin
 
 TECHNOLOGIES USED:
 JAVA, MAVEN, CUCUMBER BDD, PAGE OBJECT MODEL, SERENITY BDD FRAMEWORK(which uses Selenium in the background).
 TOOLS:
 IntelliJ, Chrome
 
+Java 17 is being used. Language level - Pattern matching for switch (Attached screenshots for reference. Go to File - Project Structure to set SDK)
 
 Attached resources:
 1. Screen recording of the test run.
