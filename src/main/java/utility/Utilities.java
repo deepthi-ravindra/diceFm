@@ -40,7 +40,7 @@ public class Utilities {
     }
 
     public static String getDateInSimpleFormat(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM");
+        SimpleDateFormat formatter = new SimpleDateFormat("d MMM");
         String finalDate = formatter.format(date);
         return finalDate;
     }

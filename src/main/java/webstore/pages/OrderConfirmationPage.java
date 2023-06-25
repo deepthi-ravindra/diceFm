@@ -9,12 +9,14 @@ public class OrderConfirmationPage extends PageObject {
 
     @FindBy(className = "ConfirmationCard__Container-sc-5rszri-8")
     WebElementFacade orderConfirmationCard;
-
     @FindBy(className = "ConfirmationCard__Title-sc-5rszri-2")
     WebElementFacade successMessage;
 
     @FindBy(className = "ConfirmationCard__Text1-sc-5rszri-3")
     WebElementFacade eventName;
+
+    @FindBy(css = "[class*='Purchase__CancelFlow']")
+    WebElementFacade closeButton;
 
     @FindBy(className = "ConfirmationCard__Text2-sc-5rszri-4")
     WebElementFacade eventVenueAndDate;
@@ -74,4 +76,8 @@ public class OrderConfirmationPage extends PageObject {
     }
 
 
+    public void clickCloseButton() {
+        closeButton.waitUntilVisible();
+        closeButton.click();
+    }
 }

@@ -24,10 +24,10 @@ public class BasicsModel extends CommonComponents {
     WebElementFacade venue;
 
     By allTypeOptions = By.cssSelector("[id*='react-select-10-option-']");
-    By allArtistOptions = By.cssSelector("[id*='react-select-11-option-']");
+    By allArtistOptions = By.cssSelector("[id*='react-select-13-option-']");
 
-    By allGenreOptions = By.cssSelector("[id*='react-select-12-option-']");
-    By allVenueOptions = By.cssSelector("[id*='react-select-13-option-']");
+    By allGenreOptions = By.cssSelector("[id*='react-select-14-option-']");
+    By allVenueOptions = By.cssSelector("[id*='react-select-15-option-']");
 
     @FindBy(css = "input[placeholder='Name of the event or headline artist']")
     WebElementFacade titleOfTheEvent;

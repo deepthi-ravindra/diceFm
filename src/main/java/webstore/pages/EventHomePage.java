@@ -3,6 +3,7 @@ package webstore.pages;
 import log.Log;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
@@ -23,7 +24,9 @@ public class EventHomePage extends PageObject {
     List<WebElementFacade> ticketTypes;
 
     @FindBy(className = "dFnwCo")
-    WebElementFacade checkoutButton;
+    WebElementFacade checkoutButtonTicket2;
+    @FindBy(className = "dvVWIh")
+    WebElementFacade checkoutButtonTicket1;
 
     /**
      * Purchase tickets on the Dice web page based on ticket type
@@ -36,18 +39,33 @@ public class EventHomePage extends PageObject {
                 Log.info("First ticket type " + ticketType + "  selected for purchase");
                 ticketTypes.get(0).waitUntilVisible();
                 ticketTypes.get(0).click();
+
+                try {
+                    waitABit(1000);
+                    checkoutButtonTicket1.waitUntilVisible();
+                    checkoutButtonTicket1.waitUntilEnabled();
+                    checkoutButtonTicket1.click();
+                } catch (ElementClickInterceptedException elementClickInterceptedException) {
+                    clickOn(checkoutButtonTicket1);
+                }
             }
 
             case "Unreserved Seating" -> {
                 Log.info("Second ticket type " + ticketType + "  selected for purchase");
                 ticketTypes.get(1).waitUntilVisible();
                 ticketTypes.get(1).click();
+
+                try {
+                    checkoutButtonTicket2.waitUntilVisible();
+                    checkoutButtonTicket2.click();
+                } catch (ElementClickInterceptedException e) {
+                    clickOn(checkoutButtonTicket2);
+                }
             }
 
             default -> Log.error("Invalid Ticket Type selected");
         }
-        checkoutButton.waitUntilVisible();
-        checkoutButton.click();
+
         Log.info("Successfully Purchased ticket type: " + ticketType);
     }
 

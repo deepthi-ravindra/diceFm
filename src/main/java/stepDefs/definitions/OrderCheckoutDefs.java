@@ -35,4 +35,9 @@ public class OrderCheckoutDefs {
     public void iShouldSeeTheOrderConfirmation() {
         orderCheckoutSteps.verifyOrderSuccess();
     }
+
+    @And("I close the page")
+    public void iCloseThePage() {
+        orderCheckoutSteps.closePage();
+    }
 }

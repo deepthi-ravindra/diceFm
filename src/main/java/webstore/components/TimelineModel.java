@@ -5,6 +5,7 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.webdriver.exceptions.ElementShouldBeInvisibleException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utility.Utilities;
@@ -23,7 +24,7 @@ public class TimelineModel extends CommonComponents {
     @FindBy(css = "input[name='date']")
     WebElementFacade eventStartDate;
 
-    @FindBy(name = "endDate")
+    @FindBy(css = "input[name='endDate']")
     WebElementFacade eventEndDate;
     @FindBy(name = "lineup[0].details")
     WebElementFacade lineupDetails;
@@ -62,7 +63,10 @@ public class TimelineModel extends CommonComponents {
         String startDate = Utilities.getDateInFormat(Utilities.datesToModify(3));
         typeInto(eventStartDate, startDate);
         find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(3)))).click();
+        find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(3)))).click();
+        find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(3)))).click();
         try {
+            waitABit(1000);
             datePickerModal.waitUntilNotVisible();
         } catch (ElementShouldBeInvisibleException elementShouldBeInvisibleException) {
             new Actions(getDriver()).click(timelinesForm).perform();
@@ -76,7 +80,6 @@ public class TimelineModel extends CommonComponents {
         waitABit(2000);
 
         //Added extra clicks as this field is a bit flaky and this is to make sure the date is clicked
-        find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(-1)))).click();
         find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(-1)))).click();
         find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(-1)))).click();
         find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(-1)))).click();
@@ -106,9 +109,11 @@ public class TimelineModel extends CommonComponents {
 
         waitABit(1000);
         eventEndDate.waitUntilVisible();
-        String endDate = Utilities.getDateInFormat(Utilities.datesToModify(8));
+        String endDate = Utilities.getDateInFormat(Utilities.datesToModify(10));
+        new Actions(getDriver()).sendKeys(eventEndDate, Keys.BACK_SPACE).sendKeys(eventEndDate, Keys.BACK_SPACE).sendKeys(eventEndDate, Keys.BACK_SPACE).sendKeys(eventEndDate, Keys.BACK_SPACE).sendKeys(eventEndDate, Keys.BACK_SPACE).perform();
         typeInto(eventEndDate, endDate);
-        find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(8)))).click();
+        waitABit(2000);
+        find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(10)))).click();
         try {
             datePickerModal.waitUntilNotVisible();
         } catch (ElementShouldBeInvisibleException elementShouldBeInvisibleException) {
@@ -117,7 +122,7 @@ public class TimelineModel extends CommonComponents {
         Log.info("Entered event end sale date " + Utilities.getDateInFormat(Utilities.datesToModify(8)));
 
         //Save for future verifications
-        String finalEventDate = Utilities.getDateInSimpleFormat(Utilities.datesToModify(3)) + " - " + Utilities.getDateInSimpleFormat(Utilities.datesToModify(8));
+        String finalEventDate = Utilities.getDateInSimpleFormat(Utilities.datesToModify(3)) + " - " + Utilities.getDateInSimpleFormat(Utilities.datesToModify(10));
         Serenity.setSessionVariable(EVENT_DATE).to(finalEventDate);
         Log.info("TIMELINE FORM FILLED");
     }

@@ -50,4 +50,9 @@ public class OrderCheckoutSteps extends ScenarioSteps {
         Assert.assertTrue("Event venue differs. Expected: " + Serenity.sessionVariableCalled(EVENT_VENUE) + " but actual: " + orderConfirmationPage.getEventVenueAndDate(), orderConfirmationPage.getEventVenueAndDate().contains(Serenity.sessionVariableCalled(EVENT_VENUE)));
         Assert.assertTrue("App card is not present", orderConfirmationPage.isAppCardPresent());
     }
+
+    @Step
+    public void closePage() {
+        orderConfirmationPage.clickCloseButton();
+    }
 }
