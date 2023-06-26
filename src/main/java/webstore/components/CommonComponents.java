@@ -24,7 +24,9 @@ public class CommonComponents extends PageObject {
         for (WebElementFacade webElementFacade : findAll(by)) {
             if (webElementFacade.getText().trim().contains(option.trim())) {
                 try {
+                    waitABit(1000);
                     webElementFacade.waitUntilVisible();
+                    webElementFacade.click();
                     webElementFacade.click();
                     waitABit(1000);
                 } catch (ElementClickInterceptedException elementClickInterceptedException) {

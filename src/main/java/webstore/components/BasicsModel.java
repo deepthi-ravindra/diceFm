@@ -5,6 +5,7 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
 import utility.DataGenerator;
 
@@ -17,6 +18,9 @@ public class BasicsModel extends CommonComponents {
     @FindBy(id = "artists")
     WebElementFacade artists;
 
+    @FindBy(css = "[data-id='eventArtists']")
+    WebElementFacade artistsSelected;
+
     @FindBy(id = "genres")
     WebElementFacade genres;
 
@@ -25,9 +29,12 @@ public class BasicsModel extends CommonComponents {
 
     By allTypeOptions = By.cssSelector("[id*='react-select-10-option-']");
     By allArtistOptions = By.cssSelector("[id*='react-select-13-option-']");
+    By allArtistOptions2 = By.cssSelector("[id*='react-select-11-option-']");
 
     By allGenreOptions = By.cssSelector("[id*='react-select-14-option-']");
+    By allGenreOptions2 = By.cssSelector("[id*='react-select-12-option-']");
     By allVenueOptions = By.cssSelector("[id*='react-select-15-option-']");
+    By allVenueOptions2 = By.cssSelector("[id*='react-select-13-option-']");
 
     @FindBy(css = "input[placeholder='Name of the event or headline artist']")
     WebElementFacade titleOfTheEvent;
@@ -52,6 +59,16 @@ public class BasicsModel extends CommonComponents {
         typeInto(artists, artist);
         selectOption(allArtistOptions, artist);
         Log.info("Entered Artist: " + artist);
+        try {
+            if (artistsSelected.getText().equals("")) {
+                typeInto(artists, artist);
+                selectOption(allArtistOptions2, artist);
+            }
+        } catch (NoSuchElementException noSuchElementException) {
+            typeInto(artists, artist);
+            selectOption(allArtistOptions2, artist);
+        }
+
 
         String title = new DataGenerator().getFirstName() + " Live in concert";
         titleOfTheEvent.waitUntilVisible();

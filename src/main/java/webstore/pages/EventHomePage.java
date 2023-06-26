@@ -4,6 +4,7 @@ import log.Log;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
@@ -54,12 +55,13 @@ public class EventHomePage extends PageObject {
                 Log.info("Second ticket type " + ticketType + "  selected for purchase");
                 ticketTypes.get(1).waitUntilVisible();
                 ticketTypes.get(1).click();
-
                 try {
                     checkoutButtonTicket2.waitUntilVisible();
                     checkoutButtonTicket2.click();
                 } catch (ElementClickInterceptedException e) {
                     clickOn(checkoutButtonTicket2);
+                } catch (NoSuchElementException noSuchElementException) {
+                    checkoutButtonTicket1.click();
                 }
             }
 

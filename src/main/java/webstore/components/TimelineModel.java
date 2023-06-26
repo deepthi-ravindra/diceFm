@@ -30,6 +30,7 @@ public class TimelineModel extends CommonComponents {
     WebElementFacade lineupDetails;
     By allTimezoneOptions = By.cssSelector("[id*='react-select-14-option-']");
     String dateSetter = "react-datepicker__day--0";
+    By selectedDate = By.className("react-datepicker__day--selected");
 
     By textBox = By.className("kbWUSc");
 
@@ -61,10 +62,9 @@ public class TimelineModel extends CommonComponents {
 
         eventStartDate.waitUntilVisible();
         String startDate = Utilities.getDateInFormat(Utilities.datesToModify(3));
+        new Actions(getDriver()).sendKeys(eventStartDate, Keys.BACK_SPACE).sendKeys(eventStartDate, Keys.BACK_SPACE).sendKeys(eventStartDate, Keys.BACK_SPACE).sendKeys(eventStartDate, Keys.BACK_SPACE).sendKeys(eventStartDate, Keys.BACK_SPACE).sendKeys(eventStartDate, Keys.BACK_SPACE).perform();
+
         typeInto(eventStartDate, startDate);
-        find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(3)))).click();
-        find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(3)))).click();
-        find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(3)))).click();
         try {
             waitABit(1000);
             datePickerModal.waitUntilNotVisible();
@@ -74,7 +74,10 @@ public class TimelineModel extends CommonComponents {
         Log.info("Entered event start date " + startDate);
 
         waitABit(1000);
+        WebElementFacade onsaledate = find(onSaleDate);
         find(onSaleDate).waitUntilVisible();
+
+        new Actions(getDriver()).sendKeys(onsaledate, Keys.BACK_SPACE).sendKeys(onsaledate, Keys.BACK_SPACE).sendKeys(onsaledate, Keys.BACK_SPACE).sendKeys(onsaledate, Keys.BACK_SPACE).sendKeys(onsaledate, Keys.BACK_SPACE).sendKeys(onsaledate, Keys.BACK_SPACE).perform();
         String onSaleDay = Utilities.getDateInFormat(Utilities.datesToModify(-1));
         typeInto(find(onSaleDate), onSaleDay);
         waitABit(2000);
@@ -83,6 +86,10 @@ public class TimelineModel extends CommonComponents {
         find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(-1)))).click();
         find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(-1)))).click();
         find(By.className(dateSetter + Utilities.getDate(Utilities.datesToModify(-1)))).click();
+        waitABit(2000);
+        new Actions(getDriver()).click(timelinesForm).perform();
+        new Actions(getDriver()).click(timelinesForm).perform();
+        new Actions(getDriver()).click(timelinesForm).perform();
         new Actions(getDriver()).click(timelinesForm).perform();
         new Actions(getDriver()).click(timelinesForm).perform();
         waitABit(1000);
